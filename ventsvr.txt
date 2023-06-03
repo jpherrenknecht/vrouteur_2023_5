@@ -1,0 +1,775 @@
+{
+    "export_ts": 1685120400,
+    "export_time": "2023-05-26T17:00:00+00:00",
+    "publish_ts": 1685120402,
+    "publish_time": "2023-05-26T17:00:02+00:00",
+    "start_ts": 1685113200,
+    "start_time": "2023-05-26T15:00:00+00:00",
+    "references": [
+        [
+            {
+                "reference": "2023052606@9",
+                "reference_ts": 1685080800,
+                "valid_ts": 1685113200,
+                "valid_time": "2023-05-26T15:00:00+00:00",
+                "delta_ref": 9,
+                "delta": 0,
+                "avail_ts": 1685093703,
+                "avail_time": "2023-05-26T09:35:03+00:00",
+                "rel_path": "live/20230526/06/009.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052606@12",
+                "reference_ts": 1685080800,
+                "valid_ts": 1685124000,
+                "valid_time": "2023-05-26T18:00:00+00:00",
+                "delta_ref": 12,
+                "delta": 3,
+                "avail_ts": 1685093703,
+                "avail_time": "2023-05-26T09:35:03+00:00",
+                "rel_path": "live/20230526/06/012.wnd"
+            },
+            {
+                "reference": "2023052612@6",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685124000,
+                "valid_time": "2023-05-26T18:00:00+00:00",
+                "delta_ref": 6,
+                "delta": 3,
+                "avail_ts": 1685115301,
+                "avail_time": "2023-05-26T15:35:01+00:00",
+                "rel_path": "live/20230526/12/006.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@9",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685134800,
+                "valid_time": "2023-05-26T21:00:00+00:00",
+                "delta_ref": 9,
+                "delta": 6,
+                "avail_ts": 1685115302,
+                "avail_time": "2023-05-26T15:35:02+00:00",
+                "rel_path": "live/20230526/12/009.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@12",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685145600,
+                "valid_time": "2023-05-27T00:00:00+00:00",
+                "delta_ref": 12,
+                "delta": 9,
+                "avail_ts": 1685115302,
+                "avail_time": "2023-05-26T15:35:02+00:00",
+                "rel_path": "live/20230526/12/012.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@15",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685156400,
+                "valid_time": "2023-05-27T03:00:00+00:00",
+                "delta_ref": 15,
+                "delta": 12,
+                "avail_ts": 1685115602,
+                "avail_time": "2023-05-26T15:40:02+00:00",
+                "rel_path": "live/20230526/12/015.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@18",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685167200,
+                "valid_time": "2023-05-27T06:00:00+00:00",
+                "delta_ref": 18,
+                "delta": 15,
+                "avail_ts": 1685115602,
+                "avail_time": "2023-05-26T15:40:02+00:00",
+                "rel_path": "live/20230526/12/018.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@21",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685178000,
+                "valid_time": "2023-05-27T09:00:00+00:00",
+                "delta_ref": 21,
+                "delta": 18,
+                "avail_ts": 1685115603,
+                "avail_time": "2023-05-26T15:40:03+00:00",
+                "rel_path": "live/20230526/12/021.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@24",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685188800,
+                "valid_time": "2023-05-27T12:00:00+00:00",
+                "delta_ref": 24,
+                "delta": 21,
+                "avail_ts": 1685115603,
+                "avail_time": "2023-05-26T15:40:03+00:00",
+                "rel_path": "live/20230526/12/024.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@27",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685199600,
+                "valid_time": "2023-05-27T15:00:00+00:00",
+                "delta_ref": 27,
+                "delta": 24,
+                "avail_ts": 1685115603,
+                "avail_time": "2023-05-26T15:40:03+00:00",
+                "rel_path": "live/20230526/12/027.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@30",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685210400,
+                "valid_time": "2023-05-27T18:00:00+00:00",
+                "delta_ref": 30,
+                "delta": 27,
+                "avail_ts": 1685115604,
+                "avail_time": "2023-05-26T15:40:04+00:00",
+                "rel_path": "live/20230526/12/030.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@33",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685221200,
+                "valid_time": "2023-05-27T21:00:00+00:00",
+                "delta_ref": 33,
+                "delta": 30,
+                "avail_ts": 1685115901,
+                "avail_time": "2023-05-26T15:45:01+00:00",
+                "rel_path": "live/20230526/12/033.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@36",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685232000,
+                "valid_time": "2023-05-28T00:00:00+00:00",
+                "delta_ref": 36,
+                "delta": 33,
+                "avail_ts": 1685115902,
+                "avail_time": "2023-05-26T15:45:02+00:00",
+                "rel_path": "live/20230526/12/036.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@39",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685242800,
+                "valid_time": "2023-05-28T03:00:00+00:00",
+                "delta_ref": 39,
+                "delta": 36,
+                "avail_ts": 1685115902,
+                "avail_time": "2023-05-26T15:45:02+00:00",
+                "rel_path": "live/20230526/12/039.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@42",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685253600,
+                "valid_time": "2023-05-28T06:00:00+00:00",
+                "delta_ref": 42,
+                "delta": 39,
+                "avail_ts": 1685115903,
+                "avail_time": "2023-05-26T15:45:03+00:00",
+                "rel_path": "live/20230526/12/042.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@45",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685264400,
+                "valid_time": "2023-05-28T09:00:00+00:00",
+                "delta_ref": 45,
+                "delta": 42,
+                "avail_ts": 1685115903,
+                "avail_time": "2023-05-26T15:45:03+00:00",
+                "rel_path": "live/20230526/12/045.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@48",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685275200,
+                "valid_time": "2023-05-28T12:00:00+00:00",
+                "delta_ref": 48,
+                "delta": 45,
+                "avail_ts": 1685115903,
+                "avail_time": "2023-05-26T15:45:03+00:00",
+                "rel_path": "live/20230526/12/048.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@51",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685286000,
+                "valid_time": "2023-05-28T15:00:00+00:00",
+                "delta_ref": 51,
+                "delta": 48,
+                "avail_ts": 1685115904,
+                "avail_time": "2023-05-26T15:45:04+00:00",
+                "rel_path": "live/20230526/12/051.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@54",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685296800,
+                "valid_time": "2023-05-28T18:00:00+00:00",
+                "delta_ref": 54,
+                "delta": 51,
+                "avail_ts": 1685116083,
+                "avail_time": "2023-05-26T15:48:03+00:00",
+                "rel_path": "live/20230526/12/054.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@57",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685307600,
+                "valid_time": "2023-05-28T21:00:00+00:00",
+                "delta_ref": 57,
+                "delta": 54,
+                "avail_ts": 1685116202,
+                "avail_time": "2023-05-26T15:50:02+00:00",
+                "rel_path": "live/20230526/12/057.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@60",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685318400,
+                "valid_time": "2023-05-29T00:00:00+00:00",
+                "delta_ref": 60,
+                "delta": 57,
+                "avail_ts": 1685116202,
+                "avail_time": "2023-05-26T15:50:02+00:00",
+                "rel_path": "live/20230526/12/060.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@63",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685329200,
+                "valid_time": "2023-05-29T03:00:00+00:00",
+                "delta_ref": 63,
+                "delta": 60,
+                "avail_ts": 1685116202,
+                "avail_time": "2023-05-26T15:50:02+00:00",
+                "rel_path": "live/20230526/12/063.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@66",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685340000,
+                "valid_time": "2023-05-29T06:00:00+00:00",
+                "delta_ref": 66,
+                "delta": 63,
+                "avail_ts": 1685116203,
+                "avail_time": "2023-05-26T15:50:03+00:00",
+                "rel_path": "live/20230526/12/066.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@69",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685350800,
+                "valid_time": "2023-05-29T09:00:00+00:00",
+                "delta_ref": 69,
+                "delta": 66,
+                "avail_ts": 1685116203,
+                "avail_time": "2023-05-26T15:50:03+00:00",
+                "rel_path": "live/20230526/12/069.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@72",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685361600,
+                "valid_time": "2023-05-29T12:00:00+00:00",
+                "delta_ref": 72,
+                "delta": 69,
+                "avail_ts": 1685116502,
+                "avail_time": "2023-05-26T15:55:02+00:00",
+                "rel_path": "live/20230526/12/072.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@75",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685372400,
+                "valid_time": "2023-05-29T15:00:00+00:00",
+                "delta_ref": 75,
+                "delta": 72,
+                "avail_ts": 1685116502,
+                "avail_time": "2023-05-26T15:55:02+00:00",
+                "rel_path": "live/20230526/12/075.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@78",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685383200,
+                "valid_time": "2023-05-29T18:00:00+00:00",
+                "delta_ref": 78,
+                "delta": 75,
+                "avail_ts": 1685116503,
+                "avail_time": "2023-05-26T15:55:03+00:00",
+                "rel_path": "live/20230526/12/078.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@81",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685394000,
+                "valid_time": "2023-05-29T21:00:00+00:00",
+                "delta_ref": 81,
+                "delta": 78,
+                "avail_ts": 1685116503,
+                "avail_time": "2023-05-26T15:55:03+00:00",
+                "rel_path": "live/20230526/12/081.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@84",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685404800,
+                "valid_time": "2023-05-30T00:00:00+00:00",
+                "delta_ref": 84,
+                "delta": 81,
+                "avail_ts": 1685116503,
+                "avail_time": "2023-05-26T15:55:03+00:00",
+                "rel_path": "live/20230526/12/084.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@87",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685415600,
+                "valid_time": "2023-05-30T03:00:00+00:00",
+                "delta_ref": 87,
+                "delta": 84,
+                "avail_ts": 1685116503,
+                "avail_time": "2023-05-26T15:55:03+00:00",
+                "rel_path": "live/20230526/12/087.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@90",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685426400,
+                "valid_time": "2023-05-30T06:00:00+00:00",
+                "delta_ref": 90,
+                "delta": 87,
+                "avail_ts": 1685116503,
+                "avail_time": "2023-05-26T15:55:03+00:00",
+                "rel_path": "live/20230526/12/090.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@93",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685437200,
+                "valid_time": "2023-05-30T09:00:00+00:00",
+                "delta_ref": 93,
+                "delta": 90,
+                "avail_ts": 1685116801,
+                "avail_time": "2023-05-26T16:00:01+00:00",
+                "rel_path": "live/20230526/12/093.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@96",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685448000,
+                "valid_time": "2023-05-30T12:00:00+00:00",
+                "delta_ref": 96,
+                "delta": 93,
+                "avail_ts": 1685116801,
+                "avail_time": "2023-05-26T16:00:01+00:00",
+                "rel_path": "live/20230526/12/096.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@99",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685458800,
+                "valid_time": "2023-05-30T15:00:00+00:00",
+                "delta_ref": 99,
+                "delta": 96,
+                "avail_ts": 1685116802,
+                "avail_time": "2023-05-26T16:00:02+00:00",
+                "rel_path": "live/20230526/12/099.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@102",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685469600,
+                "valid_time": "2023-05-30T18:00:00+00:00",
+                "delta_ref": 102,
+                "delta": 99,
+                "avail_ts": 1685116802,
+                "avail_time": "2023-05-26T16:00:02+00:00",
+                "rel_path": "live/20230526/12/102.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@105",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685480400,
+                "valid_time": "2023-05-30T21:00:00+00:00",
+                "delta_ref": 105,
+                "delta": 102,
+                "avail_ts": 1685116803,
+                "avail_time": "2023-05-26T16:00:03+00:00",
+                "rel_path": "live/20230526/12/105.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@108",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685491200,
+                "valid_time": "2023-05-31T00:00:00+00:00",
+                "delta_ref": 108,
+                "delta": 105,
+                "avail_ts": 1685116803,
+                "avail_time": "2023-05-26T16:00:03+00:00",
+                "rel_path": "live/20230526/12/108.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@111",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685502000,
+                "valid_time": "2023-05-31T03:00:00+00:00",
+                "delta_ref": 111,
+                "delta": 108,
+                "avail_ts": 1685117102,
+                "avail_time": "2023-05-26T16:05:02+00:00",
+                "rel_path": "live/20230526/12/111.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@114",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685512800,
+                "valid_time": "2023-05-31T06:00:00+00:00",
+                "delta_ref": 114,
+                "delta": 111,
+                "avail_ts": 1685117103,
+                "avail_time": "2023-05-26T16:05:03+00:00",
+                "rel_path": "live/20230526/12/114.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@117",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685523600,
+                "valid_time": "2023-05-31T09:00:00+00:00",
+                "delta_ref": 117,
+                "delta": 114,
+                "avail_ts": 1685117103,
+                "avail_time": "2023-05-26T16:05:03+00:00",
+                "rel_path": "live/20230526/12/117.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@120",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685534400,
+                "valid_time": "2023-05-31T12:00:00+00:00",
+                "delta_ref": 120,
+                "delta": 117,
+                "avail_ts": 1685117104,
+                "avail_time": "2023-05-26T16:05:04+00:00",
+                "rel_path": "live/20230526/12/120.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@123",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685545200,
+                "valid_time": "2023-05-31T15:00:00+00:00",
+                "delta_ref": 123,
+                "delta": 120,
+                "avail_ts": 1685117104,
+                "avail_time": "2023-05-26T16:05:04+00:00",
+                "rel_path": "live/20230526/12/123.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@126",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685556000,
+                "valid_time": "2023-05-31T18:00:00+00:00",
+                "delta_ref": 126,
+                "delta": 123,
+                "avail_ts": 1685117105,
+                "avail_time": "2023-05-26T16:05:05+00:00",
+                "rel_path": "live/20230526/12/126.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@129",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685566800,
+                "valid_time": "2023-05-31T21:00:00+00:00",
+                "delta_ref": 129,
+                "delta": 126,
+                "avail_ts": 1685117105,
+                "avail_time": "2023-05-26T16:05:05+00:00",
+                "rel_path": "live/20230526/12/129.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@132",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685577600,
+                "valid_time": "2023-06-01T00:00:00+00:00",
+                "delta_ref": 132,
+                "delta": 129,
+                "avail_ts": 1685117401,
+                "avail_time": "2023-05-26T16:10:01+00:00",
+                "rel_path": "live/20230526/12/132.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@135",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685588400,
+                "valid_time": "2023-06-01T03:00:00+00:00",
+                "delta_ref": 135,
+                "delta": 132,
+                "avail_ts": 1685117402,
+                "avail_time": "2023-05-26T16:10:02+00:00",
+                "rel_path": "live/20230526/12/135.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@138",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685599200,
+                "valid_time": "2023-06-01T06:00:00+00:00",
+                "delta_ref": 138,
+                "delta": 135,
+                "avail_ts": 1685117402,
+                "avail_time": "2023-05-26T16:10:02+00:00",
+                "rel_path": "live/20230526/12/138.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@141",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685610000,
+                "valid_time": "2023-06-01T09:00:00+00:00",
+                "delta_ref": 141,
+                "delta": 138,
+                "avail_ts": 1685117403,
+                "avail_time": "2023-05-26T16:10:03+00:00",
+                "rel_path": "live/20230526/12/141.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@144",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685620800,
+                "valid_time": "2023-06-01T12:00:00+00:00",
+                "delta_ref": 144,
+                "delta": 141,
+                "avail_ts": 1685117403,
+                "avail_time": "2023-05-26T16:10:03+00:00",
+                "rel_path": "live/20230526/12/144.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@147",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685631600,
+                "valid_time": "2023-06-01T15:00:00+00:00",
+                "delta_ref": 147,
+                "delta": 144,
+                "avail_ts": 1685117403,
+                "avail_time": "2023-05-26T16:10:03+00:00",
+                "rel_path": "live/20230526/12/147.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@150",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685642400,
+                "valid_time": "2023-06-01T18:00:00+00:00",
+                "delta_ref": 150,
+                "delta": 147,
+                "avail_ts": 1685117524,
+                "avail_time": "2023-05-26T16:12:04+00:00",
+                "rel_path": "live/20230526/12/150.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@153",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685653200,
+                "valid_time": "2023-06-01T21:00:00+00:00",
+                "delta_ref": 153,
+                "delta": 150,
+                "avail_ts": 1685117701,
+                "avail_time": "2023-05-26T16:15:01+00:00",
+                "rel_path": "live/20230526/12/153.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@156",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685664000,
+                "valid_time": "2023-06-02T00:00:00+00:00",
+                "delta_ref": 156,
+                "delta": 153,
+                "avail_ts": 1685117702,
+                "avail_time": "2023-05-26T16:15:02+00:00",
+                "rel_path": "live/20230526/12/156.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@159",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685674800,
+                "valid_time": "2023-06-02T03:00:00+00:00",
+                "delta_ref": 159,
+                "delta": 156,
+                "avail_ts": 1685117702,
+                "avail_time": "2023-05-26T16:15:02+00:00",
+                "rel_path": "live/20230526/12/159.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@162",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685685600,
+                "valid_time": "2023-06-02T06:00:00+00:00",
+                "delta_ref": 162,
+                "delta": 159,
+                "avail_ts": 1685117703,
+                "avail_time": "2023-05-26T16:15:03+00:00",
+                "rel_path": "live/20230526/12/162.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@165",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685696400,
+                "valid_time": "2023-06-02T09:00:00+00:00",
+                "delta_ref": 165,
+                "delta": 162,
+                "avail_ts": 1685117703,
+                "avail_time": "2023-05-26T16:15:03+00:00",
+                "rel_path": "live/20230526/12/165.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@168",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685707200,
+                "valid_time": "2023-06-02T12:00:00+00:00",
+                "delta_ref": 168,
+                "delta": 165,
+                "avail_ts": 1685118002,
+                "avail_time": "2023-05-26T16:20:02+00:00",
+                "rel_path": "live/20230526/12/168.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@171",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685718000,
+                "valid_time": "2023-06-02T15:00:00+00:00",
+                "delta_ref": 171,
+                "delta": 168,
+                "avail_ts": 1685118003,
+                "avail_time": "2023-05-26T16:20:03+00:00",
+                "rel_path": "live/20230526/12/171.wnd"
+            }
+        ],
+        [
+            {
+                "reference": "2023052612@174",
+                "reference_ts": 1685102400,
+                "valid_ts": 1685728800,
+                "valid_time": "2023-06-02T18:00:00+00:00",
+                "delta_ref": 174,
+                "delta": 171,
+                "avail_ts": 1685118004,
+                "avail_time": "2023-05-26T16:20:04+00:00",
+                "rel_path": "live/20230526/12/174.wnd"
+            }
+        ]
+    ]
+}
