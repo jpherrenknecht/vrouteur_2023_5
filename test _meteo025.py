@@ -179,14 +179,17 @@ print('tig',tig)
 
 #on va faire une prevision en 0.25
 # recherche des indices
+tic =time.time()
 lat=49
 lon=-3
 tp=tig+3600*3
+tp=tic
 
 print('***************************************************************************************************************')
-print ('tig  {}'.format(time.strftime(" %d %b %Y %H:%M:%S ", time.localtime(tig))) )
-print ('tp   {}'.format(time.strftime(" %d %b %Y %H:%M:%S ", time.localtime(tp))) )
+print ('tig  {}'.format(time.strftime(" %d %b %Y %H:%M:%S ", time.gmtime(tig))) )
+print ('tp   {}'.format(time.strftime(" %d %b %Y %H:%M:%S ", time.gmtime(tp))) )
 print('***************************************************************************************************************')
+
 
 
 
@@ -204,23 +207,16 @@ def previsiontab025(tig, GR025, tp, lat, lon):
     else:
         lat=lat.ravel()
         lon=lon.ravel()
-
-
     if (tp-tig) <120*3600:
-        
         itemp=(tp-tig)/3600
         print('(tp-tig)/3600 ',(tp-tig)/3600)
         print('on est dans le cas indice inferieur a 120')
-        iitemp=int(itemp)
-        iitemp=np.ones(len(lat))*iitemp 
+       
+      
     else:
         itemp=(((tp-tig)-(120*3600))/3600/3)+120
-        iitemp=int(itemp)
-                       # permet de traiter le cas une seule valeur de temps pour differents points 
-        iitemp=np.ones(len(lat))*iitemp   
-
-                                                   # le cas plusieurs temps differents n'est pas traite 
-    
+    iitemp=int(itemp)
+    iitemp=np.ones(len(lat))*iitemp          # permet de traiter le cas une seule valeur de temps pour differents points # le cas plusieurs temps differents n'est pas traite    
     iitemp[iitemp>207]=207                      # si le temps est superieur a tig +384h on ramene a 381h (indice 207) pour pouvoir interpoler entre 207 et 208
     ditemp=itemp%1   
     
@@ -265,15 +261,23 @@ def previsiontab025(tig, GR025, tp, lat, lon):
     UVX01=UV001+fraction*(UV101-UV001)
     UVX11=UV011+fraction*(UV111-UV011)
     res=UVX00+(UVX01-UVX00)*dx +(UVX10-UVX00)*dy  +(UVX11+UVX00-UVX10-UVX01)*dx*dy   #interpolation bilineaire
-    vitesses=np.abs(res)* 1.94384     vitesses[vitesses>70] = 70 
+    vitesses=np.abs(res)* 1.94384
+    vitesses[vitesses>70] = 70 
     vitesses[vitesses<1]  = 1
     angles = (270 - np.angle(res, deg=True)) % 360
     return vitesses, angles    
-# if(vitesses.shape[0])==1:                          # permet d avoir un retour en float pour une demande simple
-#     vitesses=vitesses[0,0]
-#     angles=angles[0,0]
 
 #****************************************************************************************************************************
+
+print("Test indice 208,10,10,               de GR025",GR025[0,0,0])
+print("Test indice 9,160,720,               de GR025",GR025[9,160,720])
+print('Test indice 208,720,1439,(derniers) de GR025 ',GR025 [208,720,1439])
+print('tig {}  en UTC {}'.format(tig,time.strftime(" %d %b %Y %H:%M:%S ", time.gmtime(tig))))
+
+
+
+
+# test avec 2 points et un temps 
 lat=np.array([49,47.333])
 lon=np.array([-3,-5.6666])
 tp=tig+3600*6
@@ -281,7 +285,7 @@ tp=tig+3600*6
 
 vitesses, angles=previsiontab025(tig, GR025, tp, lat, lon)
 print('\nresultat fonction pour tp= tig+ {}h'.format((tp-tig)/3600))
-print('angles',angles)
+print('angles  ',angles)
 print('vitesses',vitesses)
 
 
