@@ -16,6 +16,9 @@ import numpy as np
 import requests
 import xarray as xr
 basedir = os.path.abspath(os.path.dirname(__file__))
+print ('basedir ',basedir)
+rootdir='/home/jp/gribs'
+basedir=rootdir
 tic=time.time()
 ticstruct = time.localtime()
 utc = time.gmtime()
@@ -135,8 +138,8 @@ for a in range(120, 387, 3):                              # Construit le tuple d
 # bottomlat=-90
 
 GR025 = np.zeros((len(iprev), 721, 1440), dtype=complex)    # initialise le np array de complexes qui recoit les donnees  
-#
 for indexprev in range(len(iprev)):  # recuperation des fichiers de 0 a 384 h
+#for indexprev in range(3):  # recuperation des fichiers de 0 a 384 h
     prev = iprev[indexprev]
 
     url="https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?dir=%2Fgfs."+date+"%2F"+heure+"%2Fatmos&file=gfs.t"+heure+"z.pgrb2.0p25.f"+prev+"&var_UGRD=on&var_VGRD=on&lev_10_m_above_ground=on"

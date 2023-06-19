@@ -14,6 +14,13 @@ import requests
 import xarray as xr
 
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+rootdir='/home/jp/gribs'
+basedir=rootdir
+print(basedir)
+
+
+
 def previsiontab(tig, GR, tp, lat, lon):
     '''En entree tp lat et lon sont des np.arrays de memes dimensions '''
     '''Pour chaque point on a le temps la latitude et la longitude'''
@@ -78,9 +85,7 @@ ticstruct = time.localtime()
 utc = time.gmtime()
 decalage = ticstruct[3] - utc[3]
 
-basedir = os.path.abspath(os.path.dirname(__file__))
 
-print(basedir)
 
 
 def sauvegardeGrib(filename,GR,tig,indices,avail_ts):
