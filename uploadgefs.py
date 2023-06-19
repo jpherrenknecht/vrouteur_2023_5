@@ -64,6 +64,21 @@ else:
     basedir='/home/jp/gribs'
 
 
+def sauvegardeGrib(filename,GR,tig,indices,avail_ts):
+    '''genere un fichier npy  pour le gr et un fichier json pour le tig et l'indice'''
+    filenamejson=filename.split('.')[0]+'.json'
+    with open(filename,'wb')as f:       
+        np.save (f,GR)
+    # on sauve les attributs sous le meme nom dans un fichierjson
+    dicogrib={'tig':tig,'indices':indices, 'avail_ts':avail_ts}
+    with open(filenamejson, 'w') as fp:
+        json.dump(dicogrib, fp)
+    return None        
+
+
+
+
+
 
 
 def file_names_gefs():
@@ -74,19 +89,19 @@ def file_names_gefs():
     mn_jour_utc =time.gmtime()[3]*60+time.gmtime()[4]
     date_formatcourt = time.strftime("%Y%m%d", time.gmtime())
     if (mn_jour_utc <340):     #5h 40 UTC
-        filenameGefs=basedir+"/gribsgefs/gefs_"+dateveille+"-18.hdf5"
+        filenameGefs=basedir+"/gribsgefs/gefs_"+dateveille+"-18.npy"
         tigGefs=time.mktime(datetime(dateveille_tuple[0],dateveille_tuple[1],dateveille_tuple[2],18,0,0).timetuple())+decalage*3600
     elif (mn_jour_utc<700):   # Avant 11h40 c'est le 00 qu'il faut charger 
-        filenameGefs=basedir+"/gribsgefs/gefs_"+date_formatcourt+"-00.hdf5"
+        filenameGefs=basedir+"/gribsgefs/gefs_"+date_formatcourt+"-00.npy"
         tigGefs=time.mktime(datetime(date_tuple[0],date_tuple[1],date_tuple[2],0,0,0).timetuple())+decalage*3600
     elif (mn_jour_utc<1060):  #17h 40 UTC
-        filenameGefs=basedir+"/gribsgefs/gefs_"+date_formatcourt+"-06.hdf5"
+        filenameGefs=basedir+"/gribsgefs/gefs_"+date_formatcourt+"-06.npy"
         tigGefs=time.mktime(datetime(date_tuple[0],date_tuple[1],date_tuple[2],6,0,0).timetuple())+decalage*3600
     elif (mn_jour_utc<1420):  #23h 40 
-        filenameGefs=basedir+"/gribsgefs/gefs_"+date_formatcourt+"-12.hdf5"
+        filenameGefs=basedir+"/gribsgefs/gefs_"+date_formatcourt+"-12.npy"
         tigGefs=time.mktime(datetime(date_tuple[0],date_tuple[1],date_tuple[2],12,0,0).timetuple())+decalage*3600
     else:    
-        filenameGefs=basedir+"/gribsgefs/gefs_"+date_formatcourt+"-18.hdf5"
+        filenameGefs=basedir+"/gribsgefs/gefs_"+date_formatcourt+"-18.npy"
         tigGefs=time.mktime(datetime(date_tuple[0],date_tuple[1],date_tuple[2],18,0,0).timetuple())+decalage*3600
     return filenameGefs,tigGefs
 
@@ -148,23 +163,27 @@ for indexprev in range(len(iprev)):  # recuperation des fichiers de 0 a 384 h
             pass
 
 
+sauvegardeGrib(filenameGefs,GR,tigGefs,384,tigGefs+13200)   # on sauvegarde sous forme d'un fichier npy et json 
+filename2=basedir+"/gribsgefs/derniergrib.npy"
+sauvegardeGrib(filename2,GR,tigGefs,384,tigGefs+13200)  
+
 # on sauvegarde en hdf5
-tigGefs=time1.astype(datetime) *10e-10  
-print('\ntigGefs suivant fichier data ',time.strftime("%Y%m%d %H:%M:%S", time.gmtime(tigGefs )))
-print(indice)
-f1 = h5py.File(basedir+'/gribsgefs/'+nom_fichier, "w")
-dset1 = f1.create_dataset("dataset_01", GR.shape, dtype='complex', data=GR)
-dset1.attrs['time_grib'] = tigGefs      # transmet le temps initial du grib en temps local en s pour pouvoir faire les comparaisons
-dset1.attrs['indices'] = indice 
-f1.close()
+
+# print('\ntigGefs suivant fichier data ',time.strftime("%Y%m%d %H:%M:%S", time.gmtime(tigGefs )))
+# print(indice)
+# f1 = h5py.File(basedir+'/gribsgefs/'+nom_fichier, "w")
+# dset1 = f1.create_dataset("dataset_01", GR.shape, dtype='complex', data=GR)
+# dset1.attrs['time_grib'] = tigGefs      # transmet le temps initial du grib en temps local en s pour pouvoir faire les comparaisons
+# dset1.attrs['indices'] = indice 
+# f1.close()
 
 
 
-# sauvegarde sous le nom de dernier grib
-f1 = h5py.File(basedir+'/gribsgefs/derniergrib.hdf5', "w")
-dset1 = f1.create_dataset("dataset_01", GR.shape, dtype='complex', data=GR)
-dset1.attrs['time_grib'] = tigGefs      # transmet le temps initial du grib en temps local en s pour pouvoir faire les comparaisons
-dset1.attrs['nom']='gribsgefs/derniergrib.hdf5'
-dset1.attrs['indices'] = indice 
-f1.close()
+# # sauvegarde sous le nom de dernier grib
+# f1 = h5py.File(basedir+'/gribsgefs/derniergrib.hdf5', "w")
+# dset1 = f1.create_dataset("dataset_01", GR.shape, dtype='complex', data=GR)
+# dset1.attrs['time_grib'] = tigGefs      # transmet le temps initial du grib en temps local en s pour pouvoir faire les comparaisons
+# dset1.attrs['nom']='gribsgefs/derniergrib.hdf5'
+# dset1.attrs['indices'] = indice 
+# f1.close()
 
