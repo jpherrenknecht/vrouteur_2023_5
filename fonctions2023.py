@@ -951,6 +951,72 @@ def previsiontab(tig, GR, tp, lat, lon):
 # Les fonctions suivantes sont obsoletes previsiontab et previsiontabtemps etant plus rapides     
 
 
+def previsiontab025(tig, GR025, tp, lat, lon):
+    # le cas plusieurs temps differents n'est pas traite 
+    if not isinstance(lat,np.ndarray):           #permet de traiter le cas de valeurs simples 
+        lat=np.array([lat])
+        lon=np.array([lon]) 
+    else:
+        lat=lat.ravel()
+        lon=lon.ravel()
+    if (tp-tig) <120*3600:
+        itemp=(tp-tig)/3600
+        print('(tp-tig)/3600 ',(tp-tig)/3600)
+        print('on est dans le cas indice inferieur a 120')
+       
+      
+    else:
+        itemp=(((tp-tig)-(120*3600))/3600/3)+120
+    iitemp=int(itemp)
+    iitemp=np.ones(len(lat))*iitemp          # permet de traiter le cas une seule valeur de temps pour differents points # le cas plusieurs temps differents n'est pas traite    
+    iitemp[iitemp>207]=207                      # si le temps est superieur a tig +384h on ramene a 381h (indice 207) pour pouvoir interpoler entre 207 et 208
+    ditemp=itemp%1   
+    
+    lat=(90-lat)*4
+    lon=(lon%360)*4
+    lati  =lat.astype(int)
+    loni  =lon.astype(int)
+    iitemp=iitemp.astype(int)
+    dx=lon%1
+    dy=lat%1
+    fraction=ditemp 
+     
+    UV000=np.round(GR025[iitemp,lati,loni],3)
+    UV010=np.round(GR025[iitemp,(lati+1)%720,loni],3)
+    UV001=np.round(GR025[iitemp,lati,(loni+1)%1440],3)
+    UV011=np.round(GR025[iitemp,(lati+1)%720,(loni+1)%1440],3)
+
+    UV100=np.round(GR025[iitemp+1,lati,loni],3)
+    UV110=np.round(GR025[iitemp+1,(lati+1)%720,loni],3)
+    UV101=np.round(GR025[iitemp+1,lati,(loni+1)%1440],3)
+    UV111=np.round(GR025[iitemp+1,(lati+1)%720,(loni+1)%1440],3)
+
+    UVX00=UV000+fraction*(UV100-UV000)     # on interpole sur le temps
+    UVX10=UV010+fraction*(UV110-UV010)
+    UVX01=UV001+fraction*(UV101-UV001)
+    UVX11=UV011+fraction*(UV111-UV011)
+    res=UVX00+(UVX01-UVX00)*dx +(UVX10-UVX00)*dy  +(UVX11+UVX00-UVX10-UVX01)*dx*dy   #interpolation bilineaire
+    vitesses=np.abs(res)* 1.94384
+    vitesses[vitesses>70] = 70 
+    vitesses[vitesses<1]  = 1
+    angles = (270 - np.angle(res, deg=True)) % 360
+    return vitesses, angles    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def prevision_tableau(tig,GR,tp,pointsxy):
     '''vitesse 30%superieure a prevision_tableau3 avec RegularGridInterpolator'''
     v= np.zeros(len(pointsxy))

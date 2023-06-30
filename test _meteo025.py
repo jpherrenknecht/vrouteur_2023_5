@@ -15,7 +15,7 @@ import xarray as xr
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-rootdir='/home/jp/gribs'
+rootdir='/home/jp/gribsdistants'
 basedir=rootdir
 print(basedir)
 
@@ -233,24 +233,7 @@ def previsiontab025(tig, GR025, tp, lat, lon):
     dx=lon%1
     dy=lat%1
     fraction=ditemp 
-    # print()
-    # print('lat    ',lat   )
-    # print('lon    ',lon   )
-    # print('tp     ',tp    )
-    # print()
-    # print('iitemp ',iitemp )
-    # print('lati   ',lati  )
-    # print('loni   ',loni  )
-    # print('itemp  ',itemp )
-    # print ('fraction',fraction)
-    
-    # print('ditemp ',ditemp )
-    # print('dx     ',dx    )
-    # print('dy     ',dy    )
-    # print(' indices ',iitemp,lati,loni)
-    # print ('itemp',itemp)
-
-    
+     
     UV000=np.round(GR025[iitemp,lati,loni],3)
     UV010=np.round(GR025[iitemp,(lati+1)%720,loni],3)
     UV001=np.round(GR025[iitemp,lati,(loni+1)%1440],3)
@@ -283,15 +266,16 @@ print('tig {}  en UTC {}'.format(tig,time.strftime(" %d %b %Y %H:%M:%S ", time.g
 
 
 # test avec 2 points et un temps 
-lat=np.array([49,47.333])
-lon=np.array([-3,-5.6666])
-tp=tig+3600*6
-
+lat=np.array([49,47.333,37])
+lon=np.array([-3,-5.6666,24])
+tp=tig+3600*9
+#tp =time.time()
 
 vitesses, angles=previsiontab025(tig, GR025, tp, lat, lon)
 print('\nresultat fonction pour tp= tig+ {}h'.format((tp-tig)/3600))
-print('angles  ',angles)
 print('vitesses',vitesses)
+print('angles  ',angles)
+
 
 
 
