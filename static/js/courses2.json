@@ -1,0 +1,337 @@
+{
+
+    
+    "512.5" :
+    {"active" : "non",
+    "numero"  : "512" ,
+    "leg"     : "5",
+    "nom"     : "Globe40",
+    "bateau"  :"mono/class40-2021",
+    "exclusions":"/exclusions512.txt",
+    "moyenne" :10,
+    "marques" :{ "Depart":        {"lat":-17.76277        ,"lon":-149.6475},
+                 "Pacific Gate":  {"lat":-43.005758523447 ,"lon":-97.014308564961},                
+                 "Cabo de Hornos":{"lat":-55.952161514556 ,"lon":-67.272186469175},
+                 "Ushuia":        {"lat":-54.98535        ,"lon":-66.84245}
+                }  
+    },
+
+
+
+
+    "512.6" :
+    {"active" : "non",
+    "numero"  : "512" ,
+    "leg"     : "6",
+    "nom"     : "Ushuaia Recife",
+    "bateau"  :"mono/class40-2021",
+    "polar_id":3,
+    "exclusions":"/exclusions512.txt",
+    "moyenne" :10,
+    "marques" :{ "Uschuaia":        {"lat":-55.11486        ,"lon":-66.35974},
+                 "Recife":          {"lat":-8.079522,"lon":-34.86}              
+               
+                }  
+    },
+
+
+
+
+
+
+
+
+    "567.1" :
+    {
+     "active"  :"non",
+     "numero"  : "567" ,
+     "leg"     : "1",
+     "nom"     : "Jules Vernes",
+     "bateau"  :"multi/maxi_trimaran_x10percent",
+     "polar_id":9,
+     "exclusions":"/exclusions567.txt",
+     "moyenne" :15,
+     "marques" : { "Start":                      {"lat":49 ,"lon":-5} ,
+                   "F. de Noronha":        {"lat":-3 ,"lon":-32.01},
+                   "Atlantique sud "          :  {"lat":-30 ,"lon":-5}
+                    
+                    
+                } 
+    },
+
+    "568.1" :
+    {
+     "active"  :"non",
+     "numero"  : "568" ,
+     "leg"     : "1",
+     "nom"     : "Virtuel au reel",
+     "bateau"  :"mono/class40-2021",
+     "exclusions":"/exclusions568.txt",
+     "moyenne" :10,
+     "marques" : {"Le Havre start": {"lat": 49.49531, "lon": 0.05643613},
+                  "Needles": {"lat": 50.675354174347, "lon": -1.6525762774079}, 
+                  "Wolf Rock": {"lat": 50.066752412917, "lon": -5.7445894520523},
+                  "Fastnet": {"lat": 51.382817314739, "lon": -10.044227334875}, 
+                  "Sein": {"lat": 48.030805953141, "lon": -4.8363074014019},
+                  "Portsall": {"lat": 48.563276706976, "lon": -4.7280919567522},
+                  "Le Havre end": {"lat": 49.49062, "lon": 0.124929}
+                    
+                } 
+    },
+
+
+
+  
+
+
+    "569.1" :
+    {
+     "active"  :"non",
+     "numero"  : "569" ,
+     "leg"     : "1",
+     "nom"     : "Back to Saint Malo",
+     "bateau"  :"multi/maxi_trimaran_x10percent",
+     "exclusions":"/exclusions567.txt",
+     "moyenne" :15,
+     "marques" : { "Pointe a pitre":    {"lat":16.14465 ,"lon":-61.49332} ,
+                   "Saint Malo":        {"lat":48.64561 ,"lon":-2.014794}
+                    
+                    
+                } 
+    },
+
+
+    "570.1" :
+    {
+     "active"  :"non",
+     "numero"  : "570" ,
+     "leg"     : "1",
+     "nom"     : "Sydney Hobart",
+     "bateau"  :"mono/offshoreracer",
+     "exclusions":"/exclusions570.txt",
+     "moyenne" :12,
+     "marques" : { "Sydney":    {"lat": -33.8346, "lon": 151.297} ,
+                   "bouee":     {"lat": -43.239523, "lon": 148.00372}, 
+                   "Hobart":    {"lat": -42.98, "lon": 147.337}
+              
+                    
+                    
+                } 
+    },
+
+
+    "571.1" :
+    {
+     "active"  :"non",
+     "numero"  : "571" ,
+     "leg"     : "1",
+     "nom"     : "Leg Zero",
+     "bateau"  :"mono/imoca_60_foils",
+     "polar_id":4,
+     "exclusions":"/exclusions570.txt",
+     "moyenne" :12,
+     "marques" : { "Potsmouth":    {"lat":50.75721,"lon":-1.112389} ,
+                   "Alicante":     {"lat":38.3245,"lon":-0.4999015}                  
+                    
+                } 
+    },
+
+
+
+    "572.1" :
+    {
+     "active"  :"non",
+     "numero"  : "572" ,
+     "leg"     : "1",
+     "nom"     : "Leg Zero",
+     "bateau"  :"mono/imoca_60_foils",
+     "polar_id":4,
+     "exclusions":"/exclusions572.txt",
+     "moyenne" :12,
+     "marques" : { "Portsmouth":    {"lat":50.75721,"lon":-1.112389} ,
+                   "Alicante":     {"lat":38.3245,"lon":-0.4999015}                  
+                    
+                } 
+    },
+
+
+
+
+
+    "573.1" :
+    {
+     "active"  :"non",
+     "numero"  : "573" ,
+     "leg"     : "1",
+     "nom"     : "Imoca Alicante Mindelo",
+     "bateau"  :"mono/imoca_60_foils",
+     "polar_id":4,
+     "exclusions":"/exclusions572.txt",
+     "moyenne" :12,
+     "marques" : { "Alicante":    {"lat":38.342,"lon":-0.4037192} ,
+                   "Mindelo":     {"lat":16.88381,"lon":-24.99593} 
+    } 
+    },
+
+
+
+
+    "573.2" :
+    {
+     "active"  :"non",
+     "numero"  : "573" ,
+     "leg"     : "2",
+     "nom"     : "M. Cape Town",
+     "bateau"  :"mono/imoca_60_foils",
+     "polar_id":4,
+     "exclusions":"/exclusions572.txt",
+     "moyenne" :12,
+     "marques" : { 
+                   "Mindelo":        {"lat":16.90921,"lon":-25.11334} ,
+                   "F. de Noronha":  {"lat":-3.77 ,"lon":-32.35},
+                   "Atlantique sud": {"lat":-7 ,"lon":-18},
+                   "Atlantique sud2": {"lat":-20 ,"lon":-10},
+                   "Cape Town":      {"lat":-33.91008,"lon":18.44127} 
+    } 
+    },
+
+
+
+
+
+
+
+
+
+
+    "574.1" :
+    {
+     "active"  :"non",
+     "numero"  : "574" ,
+     "leg"     : "1",
+     "nom"     : "V0 65 Alicante Mindelo",
+     "bateau"  :"mono/vo65",
+     "polar_id":7,
+     "exclusions":"/exclusions570.txt",
+     "moyenne" :12,
+     "marques" : { "Alicante":    {"lat":38.342,"lon":-0.4037192} ,
+                   "Mindelo":     {"lat":16.88381,"lon":-24.99593} 
+    }
+   
+    },
+
+
+
+    
+    
+    "575.1" :
+    {
+     "active"  :"non",
+     "numero"  : "575" ,
+     "leg"     : "1",
+     "nom"     : "RORC Transat. Race",
+     "bateau"  : "multi/multi_50",
+     "polar_id":11,
+     "exclusions":"/exclusions572.txt",
+     
+     "moyenne" :15,
+     "marques" : { "Lanzarote":                  {"lat":28.82139       ,"lon":-13.82096} ,
+                  "Las Palmas":                  {"lat":28.854       ,"lon":-17.913} ,
+                    "Grenada":                   {"lat":11.9943       ,"lon":-61.80} 
+                }  
+    },
+
+
+
+
+
+    "614.1" :
+    {
+     "active"  :"non",
+     "numero"  : "614" ,
+     "leg"     : "1",
+     "nom"     : "Paprec Saint Tropez",
+     "bateau"  : "mono/class40-2021",
+     "polar_id": 3,
+     "exclusions":"/exclusions572.txt",
+     
+     "moyenne" :10,
+     "marques" : { "Depart saint Trop":         {"lat":43.306        ,"lon":6.759} ,
+                   "Pointe 1":                  {"lat":43.190        ,"lon":6.690} ,
+                   "Pointe 2":                  {"lat":43.017        ,"lon":6.338} ,
+                   "Pointe 3":                  {"lat":41.356        ,"lon":9.2302} ,
+                   "Isola di Gianutri":         {"lat":42.238        ,"lon":11.128} ,
+                   "Ile Toscane":               {"lat":42.863        ,"lon":10.446} ,
+                   "Isola Gallinara":           {"lat":44.013        ,"lon":8.219} ,
+                   "Retour ":                   {"lat":43.949         ,"lon":8.178} 
+
+                  
+                } 
+     } ,
+
+
+      "605.1" :
+      {
+      "active"  :"oui",
+      "numero"  : "605" ,
+      "leg"     : "1",
+      "nom"     : "Normandy Channel race",
+      "bateau"  : "mono/class40-2021",
+      "polar_id": 3,
+      "exclusions":"/exclusions572.txt",
+      "moyenne" :10,
+      "marques" : { "Depart caen " :         {"lat": 49.338              ,"lon":-0.31417587} ,
+                    "Saint Marcouf":         {"lat": 49.493056           ,"lon":-1.152906} ,
+                    "East Wight   ":         {"lat": 50.684328           ,"lon":-1.068583} ,
+                    "Sortie Wight ":         {"lat": 50.665              ,"lon":-1.641} ,
+                    "Lizard       ":         {"lat": 49.953              ,"lon":-5.206} ,
+                    "PorthGwarra"  :         {"lat": 50.033528           ,"lon":-5.679097} ,
+                    "Rosslare "    :         {"lat": 52.224525           ,"lon":-6.177972} ,
+                    "Fastnet "     :         {"lat": 51.310844           ,"lon":-9.836228} ,
+                    "Guernesey "   :         {"lat": 49.417467           ,"lon":-2.539914} ,
+                    "La Hague  "   :         {"lat": 49.724836           ,"lon":-1.939919} ,   
+                     "Arrivee Caen":         {"lat": 49.28063            ,"lon":-0.2377319} 
+                  }  
+
+
+    },
+
+
+    "560.1" :
+    {
+     "active"  :"oui",
+     "numero"  : "560" ,
+     "leg"     : "1",
+     "nom"     : "Eskipper",
+     "bateau"  :"multi/maxi_trimaran_x10percent",
+     "polar_id":9,
+     "exclusions":"/exclusions560.txt",
+     
+     "moyenne" :15,
+     "marques" : { "New York":                      {"lat":40.43943 ,"lon":-73.92772} ,
+                   "Milieu ligne":                    {"lat":49.4038 ,"lon":-4.5813}
+              
+                } 
+    },
+
+
+    "616.1" :
+    {
+     "active"  :"oui",
+     "numero"  : "616" ,
+     "leg"     : "1",
+     "nom"     : "Eskipper",
+     "bateau"  :"multi/maxi_trimaran",
+     "polar_id":9,
+     "exclusions":"/exclusions560.txt",
+     
+     "moyenne" :15,
+     "marques" : { "New York":                      {"lat":40.43943 ,"lon":-73.92772} ,
+                   "Milieu ligne":                    {"lat":49.4038 ,"lon":-4.5813}
+              
+                } 
+    }
+
+
+
+}    

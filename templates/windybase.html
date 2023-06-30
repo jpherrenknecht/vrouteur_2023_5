@@ -1,0 +1,97 @@
+<html>
+    <head>
+    <title>Windleaf </title>
+   
+        <meta name="Author" content="JP Herrenknecht">
+        <meta charset="utf-8"/>   
+        <meta  name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"    />
+        <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+        <script src="https://api.windy.com/assets/map-forecast/libBoot.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://unpkg.com/leaflet-arc/bin/leaflet-arc.min.js"></script>
+        <script  type="text/javascript" src="{{ url_for('static', filename='js/windleaf.js') }}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/windbase.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+
+   
+    <script type="text/javascript">
+
+document.onmousemove = suitsouris2;
+
+            function suitsouris2(evenement)
+                {
+                        if(navigator.appName=="Microsoft Internet Explorer")
+                        {       var x = event.x+document.body.scrollLeft;
+                                var y = event.y+document.body.scrollTop;
+                        }
+                        else
+                        {       var x =  evenement.pageX;
+                                var y =  evenement.pageY;
+                        }
+                        document.getElementById("box").style.position='relative';
+                        document.getElementById("box").style.left = (x+20)+'px';
+                        document.getElementById("box").style.top  = (y)+'px';
+                        document.getElementById("box").innerHTML   = x ;
+
+                }
+
+ // on va rajouter une div  a windy
+
+        var textebox= "<div id='box'  >  tatare</div>"
+      //  let elt = document.getElementById("windy");
+
+       //style='position:absolute;display:block;z-index:5;'
+
+    var windiv=document.getElementById("windy")
+    const options = 
+	{ key: 'ydO74Xuxv2WWOEShDpel1kaiae8zCnLO', verbose: true,lat: 46.1551,lon: -1.2297, zoom:6  };             //Positionné sur La Rochelle
+    
+    windyInit(options, windyAPI => {
+        const {map, picker, utils, broadcast,store } = windyAPI;
+        var tcarte=store.get('timestamp')
+
+
+      // console.log ('timestamps '+W.products.gfs.calendar.timestamps)
+  var decalageh=35
+        console.log ('timestamp1 '+tcarte)
+        store.set('timestamp',tcarte+decalageh*3600000) 
+        
+
+        let elt = document.getElementById("windy");
+        const newElt1 = document.createElement("div");   
+        elt.appendChild(newElt1);
+        newElt1.classList.add("box");
+        newElt1.innerHTML=textebox   
+
+     L.popup()
+        .setLatLng([46.1551,-1.2297])
+        .setContent('Hello la Rochelle')
+        .openOn(map);
+
+ broadcast.once('redrawFinished', () => {
+            //picker.open({ lat: 48.4, lon: 14.3 });
+            // Opening of a picker (async)
+            var tcarte=store.get('timestamp')
+            console.log('Dans redraw finished once    '+tcarte)  
+         
+
+
+        });
+        
+    });
+
+   
+
+
+    </script>
+    </head>
+
+
+    <body>
+        <div id="windy"></div>   
+    </body>
+
+
+
+
+</html>

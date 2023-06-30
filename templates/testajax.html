@@ -1,0 +1,46 @@
+<html>
+    <head>
+    <title> test ajax </title>    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/windbase.css') }}">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="http://www.fixedheadertable.com/css/defaultTheme.css" media="screen" />
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fixed-header-table/1.3.0/jquery.fixedheadertable.min.js"></script>
+    <script  type="text/javascript" src="{{ url_for('static', filename='js/windleaf.js') }}"></script>
+    <script  type="text/javascript" src="{{ url_for('static', filename='js/simulation.js') }}"></script>
+    </head>
+  
+<script>
+$(document).ready(function(){
+    $('#test1').click(function(){
+    $.ajax  ({
+        url         :'',           //url a contacter pour la reponse
+        type        :'get',
+        contentType :'application/json',
+        data      :{valeur: 'abs'},
+       // data        :{ button_text:$(this).text()},
+        success     :function (response)
+                    {
+                    //$('#test1').text(response.seconds)
+                    console.log ('reponse '+response.seconds)
+                    console.log ('valeurtest '+response.valeurtest)
+                    }
+            })
+    })
+        })
+</script>
+  
+
+
+   
+
+<body >
+  
+<h2>Test ajax</h2>
+
+<button id="btn" > Go </button>
+<div id="test1"> Test1 </div>
+</body>   
+</html>

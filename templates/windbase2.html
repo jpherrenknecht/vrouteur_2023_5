@@ -1,0 +1,906 @@
+<html>
+    <head>
+    <title>Vrouteur Home </title>
+   
+        <meta name="Author" content="JP Herrenknecht">
+        <meta charset="utf-8"/>   
+        <meta  name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"    />
+        <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+        <script src="https://api.windy.com/assets/map-forecast/libBoot.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://unpkg.com/leaflet-arc/bin/leaflet-arc.min.js"></script>
+        <script  type="text/javascript" src="{{ url_for('static', filename='js/windleaf.js') }}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/windbase.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+
+<script>
+
+      //localStorage.clear();     // si on veut nettoyer localstorage
+
+
+        function cherche_dernier_trajet()
+           {var tabcourses=JSON.parse(localStorage.getItem('trajetsvrouteur'))
+                trajet=tabcourses[9]
+                return trajet
+            }
+
+
+
+        function maj_tableau_trajets(trajet)   // derniere version avec splice
+		// cette fonction met a jour le tableau des trajets localstorage apres l'avoir eventuellement créé s'il n'existait pas 
+		{    // on charge le tableau complet 
+            var tabcourses=JSON.parse(localStorage.getItem('trajetsvrouteur'))
+           // console.log('tabcourses '+tabcourses)
+			console.log ('trajet recupere  '+trajet)
+
+          if (localStorage.getItem("trajetsvrouteur") === null)
+            {
+                var a=[0,0,0,0,0,0,0,0,0,0]     // 10 positions:  nom course t0 y0,x0,y1,x1,dep,ari,source  
+                var tabcoursesini= [a,a,a,a,a,a,a,a,a,a]      // possibilite de stocker 10 courses a la fois 
+                race1=listecourses[0][0]+'.'+listecourses[0][2]
+                
+                // A faire *****les coordonnees du depart et de l'arrivee pourront etre mis par defaut pour la course par defaut
+                // je stocke trajetcourses en localstorage
+                trajetini=[username,race1,lat,lon,ts,y1,x1,0,1,'dashmap']
+                tabcoursesini[9]=trajetini
+                localStorage.setItem('trajetsvrouteur',JSON.stringify(tabcoursesini))
+            }
+            else{
+                console.log('on est dans le else')
+                for ( var i=0 ;i< tabcourses.length ;i++)
+                  
+                    {
+                        if ( tabcourses[i][0]==trajet[0] && tabcourses[i][1]==trajet[1] )   // si la course a deja ete initiee
+                        {   console.log('La course existe deja en indice '+i)
+                            // on la retire 
+                            tabcourses.splice(i,1)
+                            // on la rajoute a la fin
+                            tabcourses.push(trajet)
+                           // tabcourses[i]=trajet
+                            localStorage.setItem('trajetsvrouteur',JSON.stringify(tabcourses))
+                            console.log ('la modification sur course existante a ete enregistree')
+                        var chgt='ok'
+                       //break
+                        } 
+                    }
+                if (chgt!='ok')      // si on a pas trouve la course dans le tableau  on considere que le depart est y0 x0 et l arrivee la marque ari=1
+                    {   tabcourses.shift()    //on rajoute la course en faisant sauter l'element le plis ancien
+                        tabcourses.push(trajet)
+                        localStorage.setItem('trajetsvrouteur',JSON.stringify(tabcourses))
+                    }   
+                }
+            }
+
+
+
+
+function progressbar2()
+    {  
+
+        var numero  =document.getElementById('id_numero_course').selectedIndex
+        var depart  =parseInt(document.getElementById('iddepart').value)
+        var arrivee =parseInt(document.getElementById('idarrivee').value)
+        var lat0    =document.getElementById('lat0').value
+        var lat1    =document.getElementById('lat1').value
+        var lat2    =document.getElementById('lat2').value
+        var lat3    =document.getElementById('lat3').value
+        var lng0    =document.getElementById('lng0').value
+        var lng1    =document.getElementById('lng1').value
+        var lng2    =document.getElementById('lng2').value
+        var lng3    =document.getElementById('lng3').value
+        var username=document.getElementById('username').value
+
+        a= listecourses[numero]
+
+
+        //sauvegarde des donnees eventuellement modifiees soumises en localstorage
+        race=listecourses [numero][0]+"."+listecourses [numero][2]   
+
+        console.log(' ')
+        console.log('Dans progressbar2')
+        console.log (' dep,  ari '+dep+' ' +ari)
+
+
+        
+
+        // calcul du temps de parcours approximatif pour barre de progression 
+        ycoord=parseInt(lat3)*(parseInt(lat0)+(parseInt(lat1)/60)+(parseInt(lat2)/3600))
+        xcoord=parseInt(lng3)*(parseInt(lng0)+(parseInt(lng1)/60)+(parseInt(lng2)/3600))
+
+
+        if ((dep==-2) || (dep==-1) ){y0=ycoord;x0=xcoord;}
+        
+       // else {y0=a[6][dep][0]; x0 =a[6][dep][1]}
+
+        console.log ('y0 '+y0+' x0 '+x0+' y1 '+y1+' x1 '+x1 )
+
+        console.log ('ycoord '+ycoord )
+
+        
+        y1=a[6][ari][0]; 
+        x1 =a[6][ari][1]
+
+
+        
+        console.log(username+' '+race+' '+t0)
+        // On enregistre le trajet
+       
+
+        // maintenant on recupere une polaire moyenne sur le bateau
+        moyenne=listecourses[numero][4]
+        //console.log('Moyenne '+moyenne) 
+        //distance depart arrivee
+        res =dist_cap_ortho(y0,x0,y1,x1)
+        //console.log ('distance '+res[0])
+        temps_trajet=res[0]/moyenne 
+
+        //console.log('temps trajet approximatif '+temps_trajet+ 'h')
+        t_calcul=((temps_trajet-12)+72)*0.08/3.5  //72 isochrones pour les 12 premieres heures + 1 par h 
+        //console.log ('temps de calcul'+t_calcul)
+
+        var nb=0;duree=t_calcul;var max=100;
+        intervalid=setInterval (function(){nb++;  if (nb>max){ clearInterval( intervalid );  }; document.getElementById('progress').value=nb;},10*duree);
+
+    }   // fin de progressbar
+
+
+
+
+
+
+
+
+
+    
+    function select_dep_arr (val)  // val est la valeur renvoyee par selectcourse
+            { 
+             //  si on change la valeur de la course 
+             //  on recupere les valeurs de depart et arrivee de la course 
+             //  on recupere les dernieres valeurs de deapart et arrivee dans get item
+             //  on constitue selectdepart et arrivee 
+             //  on les reinjecte dans le html 
+       
+
+            // console.log ('course choisie : '+val)     // val est la valeur de race en str style 470.1
+            // console.log (' listecourses '+listecourses)
+           
+            for (var i=0;i< listecourses.length;i++)                             // on recupere la valeur des marques pour la course choisie
+               {//console.log (listecourses [i][0]+"."+listecourses [i][2])
+                if (val==(listecourses [i][0]+"."+listecourses [i][2]))      // si on est bien sur la course selectionnee val est renvoye par selectcourse 
+                       {  var listemarquescourse=listecourses [i][5];
+                          var indice1= i
+                       }
+                } 
+
+
+
+
+            // console.log ('indice de la course dans listecourses : '+indice1) 
+            // console.log ('liste des marques de la course: '+listemarquescourse) 
+            
+            // on cherche dans localstorage si cette course a deja ete initiee
+            var tabcourses=JSON.parse(localStorage.getItem('trajetsvrouteur'))
+            // on recupere la valeur des donnees depart arrivee  en local storage
+            for ( var i=(tabcourses.length -1 ) ;i>0 ;i--)
+            // for (var i=0;i<tabcourses.length;i++)
+                { trajettrouve='non';
+                    if (username==tabcourses [i][0]&&val==tabcourses [i][1]  )      // si on est bien sur la course selectionnee val est renvoye par selectcourse
+                    {trajettrouve='oui'
+                        trajet=tabcourses [i]; break; 
+                    }
+                    else{trajet=tabcourses [9]}
+                }
+            // console.log ('Trajet trouve '+ trajettrouve )
+            // console.log ('Trajet trouve '+ trajet )
+            // on recupere les valeurs de local storage
+            username=trajet[0]
+            course  =trajet[1]
+            y0      =trajet[2]
+            x0      =trajet[3]
+            t0      =trajet[4]
+            y1      =trajet[5]
+            x1      =trajet[6]
+            dep     =trajet[7]
+            ari     =trajet[8]
+            source  =trajet[9]
+
+           // console.log(dep+' '+ari)
+           // on transforme les coordonnees du depart en valeur decimales
+           tablat=dec_to_mn_lat_n(y0)
+           tablng=dec_to_mn_lat_n(x0)
+
+
+        //    console.log(' ')
+        //    console.log('dep '+ trajet[7])
+
+
+            // on constitue select depart  et select arrivee 
+            var selectdepart='<select id ="iddepart" class="black11" name="dep"><option class="black11" value="-2"   >Coordonnées</option>'
+                for (var j=0;j<listemarquescourse.length;j++)
+                {selectdepart+='<option class="black11" value='+j+' '+ (trajet[7]==j ?"selected":" ")  +' >'+listemarquescourse[j]+'</option>';}  // attention va poser pb si pas -1 
+                selectdepart+='</select>'
+            
+           // console.log ('selectdepart '+selectdepart)
+            
+                var selectarrivee='<select id="idarrivee" class="black11" name="ari">';
+                for (var j=1;j<listemarquescourse.length;j++)
+                {selectarrivee+='<option class="black11" value='+j+' '+ (trajet[8]==j ?"selected":" ")  +' >'+listemarquescourse[j]+'</option>';}
+                selectarrivee+='</select>'
+
+            // console.log(' ')
+            // console.log ('selectarrivee '+selectarrivee)
+
+
+            // on injecte les valeurs dans le formulaire
+            document.getElementById('idselectdepart').innerHTML=selectdepart  
+            document.getElementById('idselectarrivee').innerHTML=selectarrivee  
+
+            }     // fin de select depart arr
+
+
+
+
+
+
+        function select_valeurs (val) 
+
+       {   // val est la valeur de race en str style 470.10 
+              for (var i=0;i< listecourses.length;i++)  //  i est la liste des courses 3 est lindice de la liste des marques j est l'indice de la marque   
+                {  if (val==(listecourses [i][0]+"."+listecourses [i][2]))      // si on est bien sur la course selectionnee val est renvoye par selectcourse 
+                    {  var listemarquescourse=listecourses [i][5];
+                    var indice1= i
+                    }
+                }
+
+        //    console.log ('listemarquescourse : '+listemarquescourse)
+
+       } 
+
+// --------------------Fin des fonctions js------------------------------------------------
+            
+
+       
+
+        var listecourses    = {{ listecourses |tojson }}      // recuperation de la liste des courses avec les departs et arrivee depuis application 
+        var source          ='{{source}}'
+        var msg             ='{{msg}}'  
+        var trajetini       ={{trajetini}}  
+       
+        var dt              = new Date();
+        var date0           = new Date() 
+        var t0              = dt.getTime()
+        console.log('t0'+ t0)
+
+        if (trajetini==0)
+            {console.log ('trajetini =0 ')
+            trajet=cherche_dernier_trajet()
+        } 
+
+        console.log('trajet'+trajet)
+
+        nbcourses=listecourses.length
+        console.log ('Nb de courses en cours : '+nbcourses)
+        //console.log ('liste des courses en cours  : '+listecourses)
+        
+        
+        // on va recuperer les valeurs de local storage        
+        //localStorage.clear();     // si on veut nettoyer localstorage
+        tabtrajets=JSON.parse(localStorage.getItem('trajetsvrouteur'))
+        trajet=tabtrajets[9]
+
+        console.log ('Dernier trajet actif '+ trajet)                            // ok 
+        
+        username                              =trajet[0]
+        race                                  =trajet[1]
+        ycoord                                =trajet[2]
+        xcoord                                =trajet[3]
+        t0                                    =trajet[4]
+        y1                                    =trajet[5]
+        x1                                    =trajet[6]
+        dep                                   =trajet[7]
+        ari                                   =trajet[8]
+        source                                =trajet[9]
+
+        dep  =parseInt(dep)
+        ari =parseInt(ari)
+
+        indicedepart=dep
+        indicearrivee=ari
+
+
+        // recuperation des valeurs pour toutes les courses
+        listenoms         = new Array
+        tabcourses        = new Array
+        listemarques      = new Array 
+        listecoordmarques = new Array
+
+        console.log('Listecourses '+listecourses)
+
+        for (var i=0;i<listecourses.length;i++)
+           {
+            listenoms.push(listecourses[i][1])
+            tabcourses.push(listecourses[i][0]+'.'+listecourses[i][2])
+            listemarques.push(listecourses[i][5])
+            listecoordmarques.push(listecourses[i][6])
+           }
+
+        console.log('listenoms'+listenoms)
+        console.log ('tabcourses'+tabcourses)
+        console.log ('listemarques'+listemarques)
+
+
+        // recherche de l'indice de la course race  en memoire dans local storage
+               
+        for (var i=0;i<(listecourses.length);i++)
+
+
+                {   
+
+                    
+                    if((listecourses [i][0]+"."+listecourses [i][2] )==race )
+                    {
+                        
+                        var indicecourse=i; break}
+                    else { var indicecourse=0}                            //s'il n'y a aucune course qui correspond ex course supprimee
+                }
+
+
+
+           // listeMarquesCourse=listecourses [indice][5];   
+           
+           
+            if (dep==-2)
+            { nom='Coordonnées'
+
+              y0=ycoord
+              x0=xcoord
+              tablat0=dec_to_mn_lat_n(y0)                         //resultat genre [43,0,21,-1]
+              tablng0=dec_to_mn_lat_n(x0)                         // sert a remplir les cases coordonnees au depart  
+              console.log ('ligne 430 on est dans le cas ou les coordonneees sont choisies') 
+
+            }
+            
+            if (dep==-1)
+            { nom='Position VR'                                 // n arrive pas dans le cas de windbase2
+                y0=ycoord                                           //position par defaut 
+                xo=xcoord
+                tablat0=dec_to_mn_lat_n(y0)                         //resultat genre [43,0,21,-1]
+                tablng0=dec_to_mn_lat_n(x0)
+            }
+            
+
+            if (dep>=0) 
+            {
+            console.log('On est dans le cas d un depart dans la liste des marques')    
+            nom=listecourses [indicecourse][5][dep]                   // recherche du depart
+            y0 =listecourses [indicecourse][6][dep][0]
+            x0 =listecourses [indicecourse][6][dep][1]
+            tablat0=dec_to_mn_lat_n(y0)                         //resultat genre [43,0,21,-1]
+            tablng0=dec_to_mn_lat_n(x0)
+            }
+
+
+
+
+
+
+            var lori0num   =  tablat0[3] 
+            var lori0txt   =  lori0num  == 1 ? 'N' : 'S';             // valeur literale d'oientation latitude
+            var nlori0txt  =  lori0txt == 'N' ? 'S': 'N';             // valeur literale inverse de lori0
+            var nlori0num  =  lori0num*-1  ;                          // valeur numerique inverse de nlori0
+            var gori0num   =  tablng0[3]                              // valeur literale d'oientation latitude
+            var gori0txt   =  gori0num  == 1 ? 'E' : 'W';             // variante numerique de lori0
+            var ngori0txt  =  gori0txt == 'E' ? 'W': 'E';             // valeur literale inverse de lori0
+            var ngori0num  =  gori0num*-1  ;                          // valeur numerique inverse de nlori0
+
+           
+
+
+
+        // constitution du  select pour les courses
+        selectcourse='<select id="id_numero_course" class="black11" onChange ="select_dep_arr(this.value)"  name="race"> '
+        //indice=0     //indice de la course qui s'affiche dans le select
+        for (var i=0;i<listecourses.length;i++)
+            { if (i==indicecourse)   {ck=' selected' ;numcourse=i  }     else {ck=''}               // on teste trajet de 1 pour reprendre la course en memoire
+                selectcourse+="<option  class='black11'  value='"+listecourses [i][0]+"."+listecourses [i][2]+"' "+ck+" >"+listecourses [i][1]+"</option>"
+            }
+            selectcourse+="</select>" 
+        
+
+
+
+            if(typeof indicecourse === undefined) {       indicecourse=0            }
+        console.log('indice course '+indicecourse) 
+        console.log('listemarques'+listemarques[indicecourse]) 
+
+        // constitution du  select pour les departs
+
+    
+   
+        var selectdepart='<select id ="iddepart" class="black11" name="dep"><option class="black11" value="-2 "' + (indicedepart==-2 ?"selected":" ") +'>Coordonnées</option> ';        
+            for (var j=0;j< listemarques[indicecourse].length ;j++)
+               {  if (j==indicedepart)   {ck=" selected"  }     else {ck=" "}               
+            selectdepart+="<option class='black11' value='"+j+"' "+ck+ " >"+listemarques[indicecourse][j]+"</option>";}  // attention va poser pb si pas -1 
+            selectdepart+='</select>'
+           
+            
+                        
+        // definition de select pour les arrivees    
+        var selectarrivee='<select id="idarrivee" class="black11" name="ari">';    
+        for (var j=1;j<listemarques [indicecourse].length;j++)
+        {   if (j==indicearrivee)   {ck=" selected"  }     else {ck=" "}    
+            selectarrivee+="<option class='lack11' value='"+j+"'"+ck+ " >"+listemarques[indicecourse][j]+"</option>";}  // attention va poser pb si pas -1 
+        selectarrivee+='</select>'
+     
+   
+
+    var popup = L.popup();
+
+
+ 
+
+    var texteboite1='<div class="titrevrouteur"  id="boite1" >VRouteur     <span class="droite">  <a href="http://virtualregatta.com/fr/offshore-jeu/" target= "_blank">VR</a></span>  '
+
+        +"<form name='routage' action='vroutage' onsubmit ='progressbar2()' >"
+            +"<table class='table3' id= 'table31'><tr>"
+            +"<td> Bateau</td><td>  <input type='text' class='black11' id ='username' name='username' placeholder= 'Nom du bateau'  value='"+username+"' required size=10></td>"
+            +"<td class='center' >Course</td><td> <span id='idselectcourse' name='selectcourse' class='black11' placeholder ='Choix de la Course'>"+selectcourse+"</span></td></tr>  "
+            +"</table>" 
+
+            +"<table class='table3' id= 'table32'><tr>"
+            +"<tr>"
+            +"<td class='l20px' >De</td> <td  id='idselectdepart' >"+selectdepart+"</td> "
+            +"<td  class='center' > A</td> <td id='idselectarrivee'  >"+selectarrivee+" </td> </tr>"
+            +"</table>" 
+        
+
+
+        +"<div class='position2' id ='position'>"
+            +"Coordonnées<br>"
+            +"<input class='classinput' width=7 id ='lat0' type='number' min='0' max='360' step='1'  value='"+tablat0[0]+"' >°"
+            +"<input type='number' min='0' max='60' step='1' id='lat1'  value='"+tablat0[1]+"' class='classinput2'>'"
+            +"<input type='number' min='0' max='60' step='1' id='lat2'  value='"+tablat0[2]+"' size='3'class='classinput2'>"
+          
+            +"<select  id= 'lat3'  class='classinput5'>"
+          
+            +"	 <option value="+lori0num+ " selected>"+lori0txt+"</option>"
+            +"	 <option value="+nlori0num+">"+nlori0txt+"</option>"
+        
+            +"</select>"
+            +"--"
+            +"<input class='classinput' type='number' min='0' max='360' step='1' id ='lng0' value='"+tablng0[0]+"' size='20'>°"
+            +"<input type='number' min='0' max='60' step='1' id ='lng1'  value='"+tablng0[1]+"' class='classinput2'>'"
+            +"<input type='number' min='0' max='60' step='1' id ='lng2'  value='"+tablng0[2]+"' size='3'class='classinput2'>"
+            
+            +"<select id ='lng3'  class='classinput5'>"
+                +"	 <option value="+gori0num+ " selected>"+gori0txt+"</option>"
+                +"	 <option value="+ngori0num+">"+ngori0txt+"</option>"
+            +"</select>"
+        +" </div>" 
+         
+                +" <div id='decalage'> Depart  "
+                +" J + <input class='classinput' type='number' min='0' max='6' step='1' id ='joursdec'  value='"+'0'+"' size='5'>    H + "
+                +"<input class='classinput' type='number' min='0' max='23' step='1' id ='heuresdec'  value='"+'0'+"' size='5'> MN  + "
+                +"<input class='classinput' type='number' min='0' max='59' step='1' id ='minutesdec'  value='"+'0'+"' size='5'> "
+                +"     soit le <span id='datedepart'> "+ intlhmn.format(date0) +"</span>"
+                +" </div>"  
+                 
+
+            +"<br><div align='center'>"
+              
+
+            
+              //  +"<input type='hidden' name='race' value="+race+ ">"
+                +"<input type='hidden' name='ycoord' id='y0' value="+ycoord+ ">"
+                +"<input type='hidden' name='xcoord' id='x0' value="+xcoord+ ">"
+                +"<input type='hidden' name='y1' id='y1' value="+y1+ ">"
+                +"<input type='hidden' name='x1' id='x1' value="+x1+ ">"
+                +"<input type='hidden' name='t0' id='t0' value="+t0+ ">"
+                +"<input type='hidden' name='source' value='windbase2.html'>"
+                +"<button type='submit' id='calcul' class='blackwhite11' value='Demarrer le routage' > Démarrer le Routage </button><br>"
+            +"</form>"
+             +" <progress value='0' min='0' max='100' id ='progress'></progress>"
+            +"</div>"
+           
+
+
+
+
+       
+//******************************************************************************************************************************************
+//******************************************************************************************************************************************
+
+    // partie propre à Windy
+    var windiv=document.getElementById("windy")
+    const options = 
+	{// key: 'ydO74Xuxv2WWOEShDpel1kaiae8zCnLO', verbose: true,lat: 46.1551,lon: -1.2297, zoom:6  };             //Positionné sur La Rochelle
+
+       key: 'ydO74Xuxv2WWOEShDpel1kaiae8zCnLO', verbose: true,lat: 50 ,lon: -28 , zoom:4  };             //Positionné sur centre atlantique
+
+    windyInit(options, windyAPI => {
+        const {map, picker, utils, broadcast,store } = windyAPI;
+        let elt = document.getElementById("windy");
+        
+
+
+        console.log('en ligne 624  ycoord '+ycoord)
+
+        const newElt1 = document.createElement("div");   
+        elt.appendChild(newElt1);
+        newElt1.classList.add("boite1");
+        newElt1.innerHTML=texteboite1          
+        
+
+        
+    //gestionnaires d evenement 
+
+        var table31=document.getElementById('table31')                                  // traitement d'un changement 
+        table31.addEventListener("change", function (evt)
+        {
+         console.log ('changement dans table31')
+        
+
+
+
+
+         // on recupere tous les elements    
+         var username    = document.getElementById('username').value
+         var course      = document.getElementById('id_numero_course').value 
+         var recuperation='non' 
+
+         console.log ('l 595 username '+username+' course '+course)
+         
+         
+       
+         
+        var tabcourses=JSON.parse(localStorage.getItem('trajetsvrouteur'))    // on recupere les elements de local storage
+         for ( var i=0 ;i< tabcourses.length ;i++)    // on recupere le trajet de la course selectionnee
+                  
+                   {   if ( tabcourses[i][0]==username && tabcourses[i][1]==course )   // si la course a deja ete initiee
+                        {trajet=tabcourses[i]
+                         var recuperation='oui'
+                         console.log('ligne 609 trajet recupere ' +trajet) 
+                        
+                        // course : c'est course  
+                        indicedepart  = trajet[7]
+                        indicearrivee = trajet[8]
+                        ycoord        = trajet[2]
+                        xcoord        = trajet[3]
+
+                        }
+                   }    
+
+
+        // on injecte toutes les valeurs dans le formulaire selectdepart select arrivee et coordonnees 
+                        console.log ('Indice de la course dans la liste des courses '+indice)
+                        for (var i=0;i<(listecourses.length);i++)
+                            {  console.log('i = '+i)
+                                if((listecourses [i][0]+"."+listecourses [i][2] )==course )
+                                {var indicecourse=i;}
+                            }
+                        
+                        listemarques=listecourses [indicecourse][5]; 
+
+                        console.log ('indice de la course dans la liste des courses '+indicecourse ) 
+                        console.log ('liste des marques pour la course selectionnee '+listemarques )                    
+
+
+
+                        var selectdepart='<select id ="iddepart" class="black11" name="dep"><option class="black11" value="-2 "' + (indicedepart==-2 ?"selected":" ") +'>Coordonnées</option> ';        
+                            for (var j=0;j< listemarques.length ;j++)
+                            {  if (j==indicedepart)   {ck=" selected"  }     else {ck=" "}               
+                            selectdepart+="<option class='black11' value='"+j+"' "+ck+ " >"+listemarques[j]+"</option>";}  // attention va poser pb si pas -1 
+                            selectdepart+='</select>'
+                         
+                        var selectarrivee='<select id="idarrivee" class="black11" name="ari">';    
+                        for (var j=1;j<listemarques .length;j++)
+                        {   if (j==indicearrivee)   {ck=" selected"  }     else {ck=" "}    
+                            selectarrivee+="<option class='lack11' value='"+j+"'"+ck+ " >"+listemarques[j]+"</option>";}  // attention va poser pb si pas -1 
+                        selectarrivee+='</select>'
+
+                                               
+                        //on peut reinjecter selectdepart et arrivee quel que soit les 
+
+                        document.getElementById('idselectdepart').innerHTML=selectdepart   
+                        document.getElementById('idselectarrivee').innerHTML=selectarrivee   
+
+                        console.log('ligne 656 '+listecourses[indicecourse][6])
+                        // console.log('ligne 656 '+listecourses[indicecourse][6][indicedepart*2])  
+                        // console.log('ligne 656 '+listecourses[indicecourse][6][indicedepart*2+1]) 
+
+                        y1 =listecourses [indicecourse][6][indicearrivee][0]
+                        x1 =listecourses [indicecourse][6][indicearrivee][1]
+                       
+
+                        console.log(' ligne 663 y1 ' +y1)
+
+                        if (indicedepart<0)    // on reinjecte les coordonnees
+                            {
+
+
+
+                                tablat0=dec_to_mn_lat_n(ycoord)      //resultat [43,0,21,-1]
+                                tablng0=dec_to_mn_lat_n(xcoord)   
+                           
+                            } 
+
+                        if (indicedepart>=0)    // on reinjecte les coordonnees du depart 
+
+                            {     
+                                
+
+                                ydep =listecourses [indicecourse][6][indicedepart][0]
+                                xdep =listecourses [indicecourse][6][indicedepart][1]
+                                tablat0=dec_to_mn_lat_n(ydep)      //resultat [43,0,21,-1]
+                                tablng0=dec_to_mn_lat_n(xdep)
+                           
+                           
+                            }    
+        
+                        console.log(' Ligne 684 tablat0  '+tablat0)
+
+
+                        document.getElementById('lat0').value = tablat0[0]
+                        document.getElementById('lat1').value = tablat0[1]            
+                        document.getElementById('lat2').value = tablat0[2]
+                        var lori0num   = tablat0[3] 
+                        var lori0txt   = lori0num  == 1 ? 'N' : 'S';                         // valeur literale d'oientation latitude
+                        var nlori0txt  = lori0txt == 'N' ? 'S': 'N';             // valeur literale inverse de lori0
+                        var nlori0num  = lori0num*-1  ;                          // valeur numerique inverse de nlori0
+                        document.getElementById('lat3').value = lori0num
+                        document.getElementById('lng0').value = tablng0[0]
+                        document.getElementById('lng1').value = tablng0[1]
+                        document.getElementById('lng2').value = tablng0[2]
+                        var gori0num   =  tablng0[3]                              // valeur literale d'oientation latitude
+                        var gori0txt   =  gori0num  == 1 ? 'E' : 'W';              // variante numerique de lori0
+                        var ngori0txt  =  gori0txt == 'E' ? 'W': 'E';             // valeur literale inverse de lori0
+                        var ngori0num  =  gori0num*-1  ;                          // valeur numerique inverse de nlori0
+                        document.getElementById('lng3').value=  gori0num
+                 
+
+                  
+       
+        var tstart      = date0.getTime()               // on suppose que la course demarre immediatement
+
+        trajet=[username,course,ycoord,xcoord,tstart,y1,x1,dep,ari,'windbase2.html']
+        maj_tableau_trajets(trajet)
+        })
+
+
+
+
+
+
+
+
+
+
+        var table32=document.getElementById('table32')                                  // traitement d'un changement 
+        table32.addEventListener("change", function (evt)
+        {
+         console.log ('changement dans table32')
+         // on recupere tous les elements    
+         var username    = document.getElementById('username').value
+         var course      = document.getElementById('id_numero_course').value 
+         var dep         = document.getElementById('iddepart').value
+         var ari         = document.getElementById('idarrivee').value
+         var lat0        = document.getElementById('lat0').value 
+         var lat1        = document.getElementById('lat1').value   
+         var lat2        = document.getElementById('lat2').value 
+         var lat3        = document.getElementById('lat3').value 
+         var lng0        = document.getElementById('lng0').value 
+         var lng1        = document.getElementById('lng1').value   
+         var lng2        = document.getElementById('lng2').value 
+         var lng3        = document.getElementById('lng3').value
+         var joursdec    = document.getElementById('joursdec').value
+         var heuresdec   = document.getElementById('heuresdec').value
+         var minutesdec  = document.getElementById('minutesdec').value
+         var decalage    = (joursdec*24*60*60+heuresdec*60*60+minutesdec*60)*1000
+         var tstart      = date0.getTime()+decalage
+         
+         dep=parseInt(dep)
+         ari=parseInt(ari)
+    
+        //  y0=lat3*(parseInt(lat0)+parseInt(lat1)/60+parseInt(lat2)/3600)
+        //  x0=lng3*(parseInt(lng0)+parseInt(lng1)/60+parseInt(lng2)/3600)   
+        console.log(' ')
+        console.log('ligne 611 '+username )
+        console.log('course '+course)
+        console.log ('valeur de dep en 648 '+dep)
+        console.log ('valeur de ari '+ari)
+        console.log ('valeur de lat0 '+lat0)
+
+        
+    // on cherche l'indice de la course 
+        for (var i=0;i<(listecourses.length);i++)
+                {  if((listecourses [i][0]+"."+listecourses [i][2] )==course )
+                    {var indice=i; break}
+                }
+        console.log('indice de  la course ligne 657 '+indice)
+            console.log ('ligne 659 course'+listecourses [indice][0])
+
+
+        if (dep>=0){     // depart normal
+         
+            console.log(' ')
+            console.log(' en 662 indice course '+indice+' dep '+dep )
+
+            ydep= listecourses[indice][6][dep][0]
+            xdep= listecourses[indice][6][dep][1]
+
+            console.log('valeur de ydep en ligne 659 '+ydep)
+            // on reaffecte ces valeurs au formulaire 
+            tablat0=dec_to_mn_lat_n(ydep)      //resultat [43,0,21,-1]
+            tablng0=dec_to_mn_lat_n(xdep)
+            document.getElementById('lat0').value = tablat0[0]
+            document.getElementById('lat1').value = tablat0[1]            
+            document.getElementById('lat2').value = tablat0[2]
+            var lori0num   = tablat0[3] 
+            var lori0txt   = lori0num  == 1 ? 'N' : 'S';                         // valeur literale d'oientation latitude
+            var nlori0txt  = lori0txt == 'N' ? 'S': 'N';             // valeur literale inverse de lori0
+            var nlori0num  = lori0num*-1  ;                          // valeur numerique inverse de nlori0
+            document.getElementById('lat3').value = lori0num
+            document.getElementById('lng0').value = tablng0[0]
+            document.getElementById('lng1').value = tablng0[1]
+            document.getElementById('lng2').value = tablng0[2]
+            var gori0num   =  tablng0[3]                              // valeur literale d'oientation latitude
+            var gori0txt   =  gori0num  == 1 ? 'E' : 'W';              // variante numerique de lori0
+            var ngori0txt  =  gori0txt == 'E' ? 'W': 'E';             // valeur literale inverse de lori0
+            var ngori0num  =  gori0num*-1  ;                          // valeur numerique inverse de nlori0
+            document.getElementById('lng3').value=  gori0num
+
+
+       
+        }
+        if(dep<0){    // depart des coordonnees 
+         //calcul de  y0 et x0  qui vont etre stockées dans
+     
+        // on recupere les coordonnees de trajet 
+        console.log(' ')    
+        console.log('En ligne 702 ycoord'+ycoord)
+        console.log(' ')   
+
+            tablat0=dec_to_mn_lat_n(ycoord)      //resultat [43,0,21,-1]
+            tablng0=dec_to_mn_lat_n(xcoord)
+            document.getElementById('lat0').value = tablat0[0]
+            document.getElementById('lat1').value = tablat0[1]            
+            document.getElementById('lat2').value = tablat0[2]
+            var lori0num   = tablat0[3] 
+            var lori0txt   = lori0num  == 1 ? 'N' : 'S';                         // valeur literale d'oientation latitude
+            var nlori0txt  = lori0txt == 'N' ? 'S': 'N';             // valeur literale inverse de lori0
+            var nlori0num  = lori0num*-1  ;                          // valeur numerique inverse de nlori0
+            document.getElementById('lat3').value = lori0num
+            document.getElementById('lng0').value = tablng0[0]
+            document.getElementById('lng1').value = tablng0[1]
+            document.getElementById('lng2').value = tablng0[2]
+            var gori0num   =  tablng0[3]                              // valeur literale d'oientation latitude
+            var gori0txt   =  gori0num  == 1 ? 'E' : 'W';              // variante numerique de lori0
+            var ngori0txt  =  gori0txt == 'E' ? 'W': 'E';             // valeur literale inverse de lori0
+            var ngori0num  =  gori0num*-1  ;                          // valeur numerique inverse de nlori0
+            document.getElementById('lng3').value=  gori0num
+            
+
+        }
+
+
+        trajet=[username,course,ycoord,xcoord,tstart,y1,x1,dep,ari,'windbase2.html']
+        maj_tableau_trajets(trajet)
+        })
+
+
+
+        
+
+        var position=document.getElementById('position')                                  // traitement d'un changement de l'heure de depart dans vrouteur 
+        position.addEventListener("change", function (evt)
+        {
+
+        // ca veut dire que l'on veut des coordonnees plutot qu'un depart    
+        document.getElementById('iddepart').value=-2
+
+
+         if (dep<0)
+         {
+         var course=document.getElementById('id_numero_course').value 
+         var lat0=document.getElementById('lat0').value 
+         var lat1=document.getElementById('lat1').value   
+         var lat2=document.getElementById('lat2').value 
+         var lat3=document.getElementById('lat3').value 
+         var lng0=document.getElementById('lng0').value 
+         var lng1=document.getElementById('lng1').value   
+         var lng2=document.getElementById('lng2').value 
+         var lng3=document.getElementById('lng3').value
+         ycoord=lat3*(parseInt(lat0)+parseInt(lat1)/60+parseInt(lat2)/3600)
+         xcoord=lng3*(parseInt(lng0)+parseInt(lng1)/60+parseInt(lng2)/3600)
+         // on reinjecte ces valeurs dans le formulaire pour qu'ellesoient transmises a application
+         document.getElementById('y0').value=ycoord
+         document.getElementById('x0').value=xcoord 
+
+         }
+         console.log ('Changement des coordonnees de depart y0 = '+ycoord+' x0 ='+xcoord)
+         var username=document.getElementById('username').value
+         var course=document.getElementById('id_numero_course').value 
+         console.log ('course '+course)
+
+
+
+         for (var i=0;i<(listecourses.length);i++)
+                {  if((listecourses [i][0]+"."+listecourses [i][2] )==race )
+                    {var indice=i; break}
+                    else { var indice=-2}
+                }
+
+            console.log ('Indice de la course dans la liste '+indice)
+            listemarquescourse=listecourses [indice][5];   
+
+
+         dep=-2
+         trajet=[username,course,ycoord,xcoord,t0,y1,x1,dep,ari,'windbase2']
+
+
+
+         // on remodifie selectdepart
+         var selectdepart='<select id ="iddepart" class="black11" name="dep"><option class="black11" value="-2"   >Coordonnées</option>'
+                for (var j=0;j<listemarquescourse.length;j++)
+                {selectdepart+='<option class="black11" value='+j+' >'+listemarquescourse[j]+'</option>';}  // attention va poser pb si pas -1 
+                selectdepart+='</select>'
+          // on injecte les valeurs dans le formulaire
+          document.getElementById('idselectdepart').innerHTML=selectdepart     
+         //   console.log ('selectdepart '+selectdepart)
+
+
+         maj_tableau_trajets(trajet)
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+    // // changement dans decalage
+    //     var decalage=document.getElementById('decalage')
+        
+    //     decalage.addEventListener("change", function (evt)
+    //     {   console.log ('Changement de decalage') 
+    //     var joursdec=document.getElementById('joursdec').value
+    //     var heuresdec=document.getElementById('heuresdec').value
+    //     var minutesdec=document.getElementById('minutesdec').value
+    //     var decalage=(joursdec*24*60*60+heuresdec*60*60+minutesdec*60)*1000
+    //     var todaynew=new Date(date0.getTime()+decalage) 
+    //     document.getElementById('datedepart').innerHTML=  intlhmn.format(todaynew)
+    //     })
+
+
+
+
+        map.on('contextmenu', function(e)
+        {popup
+                .setLatLng(e.latlng)
+                .setContent( "  <b>   Latitude &nbsp; &nbsp;: " +pos_dec_mn(e.latlng.lat)+" (" +arrondi(e.latlng.lat,4) + ") "
+                            +" <br> Longitude : " +pos_dec_mn(e.latlng.lng)+" ("+arrondi(e.latlng.lng,4)+")")
+
+                    
+                // +"<br><a href=javascript:void(0); onclick= itineraire("+e.latlng.lat+","+e.latlng.lng+","+y1+","+x1+ ") ;>Definir comme Depart</a>"
+                //  +"<br><a href=javascript:void(0); onclick= itineraire("+y0+","+x0+","+e.latlng.lat+","+e.latlng.lng+ ") ;>Definir comme Arrivee</a><br>"
+                 
+                .openOn(map);
+        });   
+
+    });
+    </script>
+    </head>
+
+
+    <body>
+        
+        <div id="windy"></div>   
+    </body>
+
+
+</html>
